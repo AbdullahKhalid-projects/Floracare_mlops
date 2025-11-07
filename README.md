@@ -290,20 +290,20 @@ grafana:
 <img width="1362" height="686" alt="image" src="https://github.com/user-attachments/assets/ce5191ef-2c4e-416a-8751-2d3b4e4c551a" />
 
 
-Prometheus scrapes our app at app:8000/metrics every 5s. 
+Prometheus scrapes our app at app:8000/metrics every 5s.
 app is the service name from Docker Compose, so Prometheus can reach it over the Compose network instead of localhost. This is how you're supposed to wire Prometheus ↔ FastAPI in Docker.
 
 <img width="648" height="558" alt="prometheus ss" src="https://github.com/user-attachments/assets/7c81e900-62cb-455a-893b-84ba6ab190dc" />
 
 
 #### Grafana Setup
-1. Open Grafana (port 3000 from Docker / Codespaces). 
-2. Log in with the admin credentials from docker-compose.yml. 
+1. Open Grafana (port 3000 from Docker / Codespaces).
+2. Log in with the admin credentials from docker-compose.yml.
 3. Add Prometheus as a data source:
 - Connections → Add new data source → Prometheus
 - URL: http://prometheus:9090
 - Save & Test
-Using the service name prometheus:9090 (not localhost) is the correct way when Grafana and Prometheus run in Docker Compose. 
+Using the service name prometheus:9090 (not localhost) is the correct way when Grafana and Prometheus run in Docker Compose.
 4. Create dashboards:
 - Add a panel
 - Query our metrics (request latency histogram, tokens_per_call, etc.)
@@ -318,7 +318,7 @@ This is the normal Prometheus → Grafana workflow: Prometheus scrapes our FastA
 
 
 #### Docker-compose to bring it all together
-- app runs the FastAPI model server with Uvicorn on 0.0.0.0:8000 so other containers can reach it (this is required in Docker). 
+- app runs the FastAPI model server with Uvicorn on 0.0.0.0:8000 so other containers can reach it (this is required in Docker).
 - prometheus scrapes app.
 - grafana connects to Prometheus.
 
@@ -339,22 +339,22 @@ docker compose up --build
 - Preprocesses the uploaded leaf image (resize / crop / normalize like during training), runs inference, and returns predicted class and confidence.
 - Adds our request timing middleware (imported from `instrumentation.py`) so every request is measured.
 - Publishes an internal metrics endpoint that the rest of the monitoring stack uses.
-- 
+-
 ![main running in real time thru univcorn command](https://github.com/user-attachments/assets/8d4eb049-81c5-4ed2-923b-bb6abe1cb10c)
 
 
 #### API routes exposed
-- `/`  
+- `/`
   Basic welcome message to confirm the service is running.
-- `/health`  
+- `/health`
   Liveness check used by Docker and by us manually. It returns a short JSON like `{"status":"ok"}` so we can prove the container is healthy.
-- `/predict`  
+- `/predict`
   This is the main inference route. You upload a plant leaf image, the model runs, and you get back the predicted disease + confidence score.
-- `/docs`  
+- `/docs`
   FastAPI automatically generates interactive Swagger UI at `/docs`. You can call `/predict` from the browser, send an image, and see the model output immediately with no extra tooling. FastAPI ships this behavior by default using OpenAPI and Swagger UI. :contentReference[oaicite:1]{index=1}
 
 #### How we run it
-We don’t execute `python src/app/main.py` directly.  
+We don’t execute `python src/app/main.py` directly.
 Instead we launch the app using Uvicorn from the project root:
 
 ```bash

@@ -1,6 +1,3 @@
-from time import perf_counter
-from typing import Callable, Awaitable
-from fastapi import Request
 from prometheus_client import (
     Counter,
     Histogram,
