@@ -22,7 +22,7 @@ The Evidently AI dashboard provides comprehensive monitoring of:
 
 ## 📂 Files
 
-- `data_drift_report.html` - Main Evidently AI dashboard (click to view)
+- `data_drift_report.html` - Main Evidently AI dashboard 
 
 ## 🔍 How to View
 
@@ -37,7 +37,7 @@ The Evidently AI dashboard provides comprehensive monitoring of:
 - Color variation: std_red, std_green, std_blue
 - Color ratios: red_ratio, green_ratio, blue_ratio
 - Image quality: brightness, contrast
-- File metadata: file_size_kb
+- File metadata: 3.0 Gb
 
 ### Classification Labels:
 - class_name (38 plant disease categories)
